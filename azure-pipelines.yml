@@ -1,0 +1,12 @@
+trigger:
+- main
+
+pool:
+  name: 'Default'
+
+steps:
+- script: |
+    echo "Starting Build on Jihene's Agent..."
+    npm install
+    npm run build
+  displayName: 'Build React App'
