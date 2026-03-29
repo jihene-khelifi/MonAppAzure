@@ -7,13 +7,10 @@ pool:
   name: 'Default'
 
 variables:
-  # Nom de la Service Connection pour le Docker Registry
+  # NOM DE LA SERVICE CONNECTION (L'agent l'utilise pour se connecter à Azure)
   dockerRegistryServiceConnection: 'MyAzureConn_2'
   
-  # Nom du serveur de connexion ACR
-  containerRegistry: 'cloudazure1.azurecr.io' 
-  
-  # Nom du repository pour l'image Docker
+  # NOM DU REPOSITORY (Le dossier dans ACR où l'image sera stockée)
   imageRepository: 'mon-app-front'
   
   # Tag unique pour chaque build
@@ -25,9 +22,10 @@ steps:
   displayName: 'Build and Push Image to ACR'
   inputs:
     command: 'buildAndPush'
+    # Utilisation du nom du repo défini dans les variables
     repository: $(imageRepository)
     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-    # Utilisation de la Service Connection pour l'authentification
+    # ICI : On met obligatoirement la Service Connection (L'authentification)
     containerRegistry: $(dockerRegistryServiceConnection)
     tags: |
       $(tag)
